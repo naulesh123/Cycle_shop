@@ -31,6 +31,8 @@ const buyerSchema = new mongoose.Schema({
     name: String,
     price: Number,
     pics: [String],
+    sellerName: String,
+    sellerPhone: String
   }],
 });
 
@@ -41,16 +43,7 @@ const Buyer = mongoose.model('Buyer', buyerSchema);
 app.post('/sell', async (req, res) => {
   try {
     const { name, phone, cycles } = req.body;
-
-    let seller = await Seller.findOne({ phone });
-
-    if (seller) {
-      seller.cycles.push(...cycles);
-      await seller.save();
-    } else {
-      seller = await Seller.create({ name, phone, cycles });
-    }
-
+    const seller = await Seller.findOneAndUpdate({ phone }, { name, phone, cycles }, { upsert: true, new: true });
     res.status(201).json({ seller });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -75,24 +68,33 @@ app.get('/cycles', async (req, res) => {
 
 app.post('/buy', async (req, res) => {
   try {
-    const { buyerName, buyerPhone, sellerId, cycleIndex } = req.body;
-    const seller = await Seller.findById(sellerId);
+    const { buyerName, buyerPhone, cycleId } = req.body;
+
+    // Find the seller and the cycle
+    const seller = await Seller.findOne({ "cycles._id": cycleId });
     if (!seller) {
-      return res.status(404).json({ error: 'Seller not found' });
-    }
-    const cycle = seller.cycles[cycleIndex];
-    if (!cycle) {
       return res.status(404).json({ error: 'Cycle not found' });
     }
 
-    let buyer = await Buyer.findOne({ phone: buyerPhone });
+    const cycle = seller.cycles.id(cycleId);
 
-    if (buyer) {
-      buyer.cyclesBought.push(cycle);
-      await buyer.save();
-    } else {
-      buyer = await Buyer.create({ name: buyerName, phone: buyerPhone, cyclesBought: [cycle] });
-    }
+    // Find or create the buyer
+    const buyer = await Buyer.findOneAndUpdate(
+      { phone: buyerPhone },
+      { name: buyerName, phone: buyerPhone },
+      { upsert: true, new: true }
+    );
+
+    // Add cycle to buyer's bought cycles
+    buyer.cyclesBought.push({
+      name: cycle.name,
+      price: cycle.price,
+      pics: cycle.pics,
+      sellerName: seller.name,
+      sellerPhone: seller.phone
+    });
+
+    await buyer.save();
 
     res.status(200).json({ message: 'Cycle bought successfully', buyer });
   } catch (error) {
@@ -100,10 +102,10 @@ app.post('/buy', async (req, res) => {
   }
 });
 
-app.get('/seller/:sellerId/cycles', async (req, res) => {
+app.get('/seller/:sellerPhone/cycles', async (req, res) => {
   try {
-    const { sellerId } = req.params;
-    const seller = await Seller.findById(sellerId).select('cycles');
+    const { sellerPhone } = req.params;
+    const seller = await Seller.findOne({ phone: sellerPhone }).select('cycles');
     if (!seller) {
       return res.status(404).json({ error: 'Seller not found' });
     }
@@ -116,7 +118,7 @@ app.get('/seller/:sellerId/cycles', async (req, res) => {
 app.get('/buyer/:buyerPhone/cyclesBought', async (req, res) => {
   try {
     const { buyerPhone } = req.params;
-    const buyer = await Buyer.findOne({ phone: buyerPhone });
+    const buyer = await Buyer.findOne({ phone: buyerPhone }).populate('cyclesBought');
     if (!buyer) {
       return res.status(404).json({ error: 'Buyer not found' });
     }
