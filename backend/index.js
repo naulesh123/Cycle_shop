@@ -128,6 +128,24 @@ app.get('/buyer/:buyerPhone/cyclesBought', async (req, res) => {
   }
 });
 
+app.get('/sellers', async (req, res) => {
+  try {
+    const sellers = await Seller.find().select('name phone');
+    res.status(200).json({ sellers });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/buyers', async (req, res) => {
+  try {
+    const buyers = await Buyer.find().select('name phone');
+    res.status(200).json({ buyers });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
