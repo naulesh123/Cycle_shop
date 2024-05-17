@@ -26,9 +26,11 @@ const sellerSchema = new mongoose.Schema({
 
 const buyerSchema = new mongoose.Schema({
   name: String,
+  phone: String,
   cyclesBought: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Cycle',
+    name: String,
+    price: Number,
+    pics: [String],
   }],
 });
 
@@ -39,7 +41,16 @@ const Buyer = mongoose.model('Buyer', buyerSchema);
 app.post('/sell', async (req, res) => {
   try {
     const { name, phone, cycles } = req.body;
-    const seller = await Seller.create({ name, phone, cycles });
+
+    let seller = await Seller.findOne({ phone });
+
+    if (seller) {
+      seller.cycles.push(...cycles);
+      await seller.save();
+    } else {
+      seller = await Seller.create({ name, phone, cycles });
+    }
+
     res.status(201).json({ seller });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -48,10 +59,11 @@ app.post('/sell', async (req, res) => {
 
 app.get('/cycles', async (req, res) => {
   try {
-    const cycles = await Seller.find().select('name cycles');
-    const allCycles = cycles.flatMap(seller => {
+    const sellers = await Seller.find().select('name phone cycles');
+    const allCycles = sellers.flatMap(seller => {
       return seller.cycles.map(cycle => ({
         sellerName: seller.name,
+        sellerPhone: seller.phone,
         ...cycle.toObject()
       }));
     });
@@ -61,19 +73,28 @@ app.get('/cycles', async (req, res) => {
   }
 });
 
-
-app.post('/buy/:sellerId/:cycleIndex', async (req, res) => {
+app.post('/buy', async (req, res) => {
   try {
-    const { sellerId, cycleIndex } = req.params;
+    const { buyerName, buyerPhone, sellerId, cycleIndex } = req.body;
     const seller = await Seller.findById(sellerId);
+    if (!seller) {
+      return res.status(404).json({ error: 'Seller not found' });
+    }
     const cycle = seller.cycles[cycleIndex];
+    if (!cycle) {
+      return res.status(404).json({ error: 'Cycle not found' });
+    }
 
-    // Assuming the buyer is already authenticated
-    const buyer = await Buyer.findOne({ name: 'Buyer Name' });
-    buyer.cyclesBought.push(cycle);
-    await buyer.save();
+    let buyer = await Buyer.findOne({ phone: buyerPhone });
 
-    res.status(200).json({ message: 'Cycle bought successfully' });
+    if (buyer) {
+      buyer.cyclesBought.push(cycle);
+      await buyer.save();
+    } else {
+      buyer = await Buyer.create({ name: buyerName, phone: buyerPhone, cyclesBought: [cycle] });
+    }
+
+    res.status(200).json({ message: 'Cycle bought successfully', buyer });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -92,11 +113,10 @@ app.get('/seller/:sellerId/cycles', async (req, res) => {
   }
 });
 
-
-app.get('/buyer/:buyerId/cyclesBought', async (req, res) => {
+app.get('/buyer/:buyerPhone/cyclesBought', async (req, res) => {
   try {
-    const { buyerId } = req.params;
-    const buyer = await Buyer.findById(buyerId).populate('cyclesBought');
+    const { buyerPhone } = req.params;
+    const buyer = await Buyer.findOne({ phone: buyerPhone });
     if (!buyer) {
       return res.status(404).json({ error: 'Buyer not found' });
     }
@@ -105,7 +125,6 @@ app.get('/buyer/:buyerId/cyclesBought', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 // Start the server
 app.listen(PORT, () => {
