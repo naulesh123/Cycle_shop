@@ -1,14 +1,11 @@
-import flowbiteplugin from 'flowbite/plugin';
+const withMT = require("@material-tailwind/react/utils/withMT");
 
-export default({
-  content: [   
-      "./index.html",
+module.exports = withMT({
+  content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "../frontend/node_modules/flowbite/dist/flowbite.js"],
+  ],
   theme: {
     extend: {},
   },
-  plugins: [
-    flowbiteplugin
-  ],
+  plugins: [],
 });

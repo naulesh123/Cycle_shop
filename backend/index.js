@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const { message } = require('statuses');
+
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 
@@ -145,6 +147,10 @@ app.get('/buyers', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+
+
 
 // Start the server
 app.listen(PORT, () => {
