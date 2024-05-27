@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { message } = require('statuses');
-
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB

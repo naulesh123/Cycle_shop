@@ -31,7 +31,7 @@ export function NewModal(props) {
           className="h-full w-full object-cover object-center"
           src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80"
         /> */}
-        <New_Card product_photo={props.product_photo} product_title={props.product_title}/>
+        <New_Card product_photo={props.product_photo[0]} product_title={props.product_title}/>
 
       </Card>
        <Dialog size="lg" open={open} handler={handleOpen}>
@@ -87,7 +87,7 @@ export function NewModal(props) {
             className="h-[48rem] w-full rounded-lg object-cover object-center"
             src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80"
           /> */}
-          <Inside_Modal product_photo={props.product_photo} product_title={props.product_title} product_price={props.product_price} />
+          <Inside_Modal product_photo={props.product_photo} product_title={props.product_title} product_price={props.product_price} sellerName={props.sellerName} sellerPhone={props.sellerPhone}/>
         </DialogBody>
         <DialogFooter className="justify-between">
           <div className="flex items-center gap-16">

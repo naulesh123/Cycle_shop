@@ -27,9 +27,17 @@ const Inside_Modal = (props) => {
             </div>
             <div>
               <Typography variant="small" color="blue-gray" className="mb-1">
+                Seller Name
+              </Typography>
+              {/* <Input type="text" placeholder="Enter number" /> */}
+              {props.sellerName}
+            </div>
+            <div>
+              <Typography variant="small" color="blue-gray" className="mb-1">
                 Phone Number
               </Typography>
               {/* <Input type="text" placeholder="Enter number" /> */}
+              {props.sellerPhone}
             </div>
           </div>
         </CardBody>
