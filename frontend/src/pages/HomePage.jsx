@@ -24,14 +24,23 @@ const options = {
 };
 
   const getting_data = async () => {
-    try {
-      const response = await axios.request(options);
-      console.log(response.data.data.products);
-      setproduct_array(response.data.data.products);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //   try {
+  //     const response = await axios.request(options);
+  //     console.log(response.data.data.products);
+  //     setproduct_array(response.data.data.products);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  try {
+    const response = await axios.get('http://localhost:5000/cycles')
+    console.log(response.data.cycles);
+    setproduct_array(response.data.cycles);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
   useEffect(() => {
     getting_data();
@@ -43,9 +52,9 @@ if(product_array)
   {
 console.log('hero')
 for(let i=0;i<product_array.length;i++){
-console.log(product_array[i].product_title.split(',')[0]);
+console.log(product_array[i].name);
 // new_array.push(<New_Card product_title={product_array[i].product_title.split(',')[0]} product_photo={product_array[i].product_photo}/>)
-new_array.push(<NewModal product_title={product_array[i].product_title.split(',')[0]} product_photo={product_array[i].product_photo} product_price={product_array[i].product_price} />)
+new_array.push(<NewModal product_title={product_array[i].name} product_photo={product_array[i].pics} product_price={product_array[i].price} sellerName={product_array[i].sellerName} sellerPhone={product_array[i].sellerPhone}     />)
 
 
 }  
