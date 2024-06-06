@@ -1,5 +1,6 @@
 import nit_logo from "../assets/nit_logo.png";
 import Registration_Modal from "./Registration_Modal";
+import Search_box from "./Search_box";
 
 export default function Navbar() {
   return (
@@ -15,6 +16,7 @@ export default function Navbar() {
               Cycle Shop
             </span>
           </a>
+          <Search_box/>
           <button
             data-collapse-toggle="navbar-dropdown"
             type="button"

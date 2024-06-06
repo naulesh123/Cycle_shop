@@ -1,25 +1,25 @@
 import { Carousel } from "@material-tailwind/react";
-
+import Corousel_scroller_element from "./Corousel_scroller_element";
 
 export function Carousel_scroller(props) {
+
+console.log(props.product_photo)
+
+const arr=[];
+
+for(let i=0;i<props.product_photo.length;i++)
+  {
+  const imgurl=`http://localhost:5000/uploads/${props.product_photo[i]}`;
+  arr.push(<Corousel_scroller_element products_url={imgurl}/>)
+  
+  
+  }
+
   return (
     <Carousel className="rounded-l w-96 justify-centre">
-      <img
-        // src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
-        src={props.product_photo}
-        alt="image 1"
-        className=" object-cover "
-      />
-      {/* <img
-        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-        alt="image 2"
-        className=" object-cover "
-      />
-      <img
-        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-        alt="image 3"
-        className=" object-cover "
-      /> */}
+      
+      {arr}
+
     </Carousel>
   );
 }

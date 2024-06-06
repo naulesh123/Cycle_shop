@@ -4,9 +4,13 @@ import { Link } from "react-router-dom";
 import { Dropdown } from "./Dropdown";
 import nit_logo from "../assets/nit_logo.png";
 import { Sign_in } from "./Sign_in";
+import Search_box from "./Search_box";
 function NavList() {
   return (
     <ul className="flex flex-row gap-4 lg:gap-6 items-center">
+      <li className="font-medium">
+        <Search_box />
+      </li>
       <li className="font-medium">
         <Dropdown />
       </li>
