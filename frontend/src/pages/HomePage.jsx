@@ -3,39 +3,33 @@ import axios from 'axios';
 import Card from '../Components/Card';
 import { New_Card } from '../Components/New_Card';
 import { NewModal } from '../Components/NewModal';
+import Search_box from '../Components/Search_box';
+import Big_searchBar from '../Components/Big_searchbar';
 
 export default function HomePage() {
 const [product_array, setproduct_array] = useState()  
 const [Card_array, setCard_array] = useState([])
+const [selling_image, setselling_image] = useState()
+
+const trimmer=(string)=>{
+let str=string[0];
+str=str.split("\\")
+
+console.log(str[str.length-1])
+return str[str.length-1]
+
+}
+
 let new_array=[];
-  
-const options = {
-  method: 'GET',
-  url: 'https://real-time-amazon-data.p.rapidapi.com/search',
-  params: {
-    query: 'Phone',
-    page: '1',
-    country: 'US'
-  },
-  headers: {
-    'X-RapidAPI-Key': '2232e65402msh4d6f8337a5d541dp19a965jsn7eadadbcf4e7',
-    'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
-  }
-};
+
 
   const getting_data = async () => {
-  //   try {
-  //     const response = await axios.request(options);
-  //     console.log(response.data.data.products);
-  //     setproduct_array(response.data.data.products);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  
   try {
     const response = await axios.get('http://localhost:5000/cycles')
-    console.log(response.data.cycles);
-    setproduct_array(response.data.cycles);
+    console.log(response.data);
+    setproduct_array(response.data);
+    
   } catch (error) {
     console.error(error);
   }
@@ -50,31 +44,26 @@ console.log(product_array,'product_array')
 
 if(product_array)
   {
-console.log('hero')
+
 for(let i=0;i<product_array.length;i++){
 console.log(product_array[i].name);
-// new_array.push(<New_Card product_title={product_array[i].product_title.split(',')[0]} product_photo={product_array[i].product_photo}/>)
-new_array.push(<NewModal product_title={product_array[i].name} product_photo={product_array[i].pics} product_price={product_array[i].price} sellerName={product_array[i].sellerName} sellerPhone={product_array[i].sellerPhone}     />)
 
+new_array.push(<NewModal profile_image={trimmer(product_array[i].pics)}  product_title={product_array[i].name} product_photo={product_array[i].pics} product_price={product_array[i].price} sellerName={product_array[i].sellerName} sellerPhone={product_array[i].sellerPhone}/>)
 
 }  
 
-
-
 }
 
-
-
-
-
-
-  return (
+  return (<>
+<div style={{display: 'flex',alignItems:'center',justifyContent: 'center',height: '30vh'}}><Big_searchBar/></div>
+  
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
       {new_array.map((item, index) => (
         <div key={index} className="grid-item">
           {item}
         </div>
       ))}
+     
     </div>
-  );
+    </>);
 }

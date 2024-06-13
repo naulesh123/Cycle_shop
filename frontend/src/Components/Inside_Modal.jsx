@@ -17,7 +17,6 @@ const Inside_Modal = (props) => {
                 Price
               </Typography>
               {props.product_price}
-              {/* <Input type="text" placeholder="Enter price" /> */}
             </div>
             <div>
               <Typography variant="small" color="blue-gray" className="mb-1">
