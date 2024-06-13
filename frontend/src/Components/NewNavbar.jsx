@@ -21,6 +21,12 @@ function NavList() {
       </li>
       
       <li className="font-medium">
+        <Link to="/Discard" className="hover:text-blue-500 transition-colors text-blue-gray-900">
+          MyAds
+        </Link>
+      </li>
+
+      <li className="font-medium">
         <Sign_in/>
       </li>
       

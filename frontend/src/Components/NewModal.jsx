@@ -19,7 +19,7 @@ export function NewModal(props) {
  
   const handleOpen = () => setOpen((cur) => !cur);
   const handleIsFavorite = () => setIsFavorite((cur) => !cur);
- console.log(props.product_photo,"nm")
+//  console.log(props.product_photo,"nm")
 
   return (
     <>

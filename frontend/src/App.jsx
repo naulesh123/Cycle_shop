@@ -9,6 +9,7 @@ import Search_box from "./Components/Search_box";
 import {Discard_ad} from "./pages/Discard_ad";
 import { increment, decrement, incrementByAmount } from './store/counter/counterSlice'
 import { useSelector,useDispatch } from "react-redux";
+import Sell2 from "./pages/Sell2";
 
 
 function App() {
@@ -30,6 +31,7 @@ const dispatch=useDispatch()
         <Route path="/" element={<HomePage />} />
         <Route path="/Sell" element={<Sell />} />
         <Route path="/Discard" element={<Discard_ad />} />
+        <Route path='/Sell2' element={<Sell2/>} />
       </Routes>
       
     </>

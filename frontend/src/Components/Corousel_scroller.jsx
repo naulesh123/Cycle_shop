@@ -3,7 +3,7 @@ import Corousel_scroller_element from "./Corousel_scroller_element";
 
 export function Carousel_scroller(props) {
 
-console.log(props.product_photo)
+// console.log(props.product_photo)
 
 const arr=[];
 

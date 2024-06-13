@@ -112,6 +112,8 @@ app.post('/delete', async (req, res) => {
       return res.status(404).send({ error: 'Seller or cycle not found' });
     }
 
+
+
     res.send({ message: 'Cycle removed successfully', result });
   } catch (error) {
     res.status(500).send({ error: 'An error occurred', details: error.message });
@@ -119,6 +121,41 @@ app.post('/delete', async (req, res) => {
 
 
 
+  app.post('/change', upload.array('pics', 12), async (req, res) => {
+  try {
+    const { new_name, new_phone, new_title, description, new_price, user_id } = req.body;
+    const pics = req.files.map(file => file.filename); // Extract filenames from uploaded files
+
+    const newCycle = {
+      name: new_title,
+      price: new_price,
+      pics
+    };
+
+    // First, pull the existing cycle by user_id
+    const del = await Seller.findOneAndUpdate(
+      { phone: new_phone },
+      { $pull: { cycles: { _id: user_id } } },
+      { new: true }
+    );
+
+    if (!del) {
+      return res.status(404).send({ error: 'Seller or cycle not found' });
+    }
+
+    // Then, push the new cycle
+    const changed = await Seller.findOneAndUpdate(
+      { phone: new_phone },
+      { $push: { cycles: newCycle }, name: new_name },
+      { new: true }
+    );
+
+    res.send(changed);
+  } catch (e) {
+    console.error('Error updating data:', e);
+    res.status(500).send({ error: 'An error occurred', details: e.message });
+  }
+});
 
 
 
