@@ -12,7 +12,7 @@ function NavList() {
         <Search_box />
       </li>
       <li className="font-medium">
-        <Dropdown />
+        {/* <Dropdown /> */}
       </li>
       <li className="font-medium">
         <Link to="/Sell" className="hover:text-blue-500 transition-colors text-blue-gray-900">
@@ -27,7 +27,7 @@ function NavList() {
       </li>
 
       <li className="font-medium">
-        <Sign_in/>
+        {/* <Sign_in/> */}
       </li>
       
     </ul>
@@ -44,7 +44,7 @@ export function NewNavbar() {
             variant="h5"
             className="text-blue-gray-900 cursor-pointer"
           >
-            Cycle shop
+            Shop.nitr
             
 
           </Typography>

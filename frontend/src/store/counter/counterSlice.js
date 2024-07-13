@@ -11,9 +11,14 @@ const initialState = {
 user_name:'',
 user_title:'',
 user_phone_no:'',
-user_id:''
+user_id:'',
 
-//////////////
+////// search related ////////
+search_value:'',
+database_items :[],
+searched_items:[],
+product_array_obj:[],
+//////////////////////////////
 
 }
 
@@ -56,6 +61,18 @@ export const counterSlice = createSlice({
     },
     updating_user_id:(state,action)=>{
       state.user_id=action.payload
+    },
+    updating_search_value:(state,action)=>{
+    state.search_value=action.payload
+    },
+    updating_database_items:(state,action)=>{
+      state.database_items=action.payload
+    },
+    updating_search_items:(state,action)=>{
+      state.searched_items=action.payload
+    },
+    updating_product_array_obj:(state,action)=>{
+      state.product_array_obj=action.payload
     }
 
 
@@ -68,7 +85,7 @@ export const counterSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { increment, decrement, incrementByAmount ,index_of_delete,number_of_delete,updating_array,updating_sellername,updating_user_name,updating_user_title,updating_user_phone_no
-  ,updating_user_id
+  ,updating_user_id,updating_search_value,updating_database_items,updating_search_items,updating_product_array_obj
 } = counterSlice.actions
 
 export default counterSlice.reducer
