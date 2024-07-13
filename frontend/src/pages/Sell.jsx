@@ -26,7 +26,7 @@ const Sell = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('phone', phone);
-    formData.append('title', title);
+    formData.append('title', title.toLowerCase());
     formData.append('description', description); // Append description
     formData.append('price', price);
     photos.forEach((photo, index) => {

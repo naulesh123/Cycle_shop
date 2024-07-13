@@ -16,6 +16,12 @@ function App() {
   
 const dispatch=useDispatch()
 
+// const items=[' M bike', 'bicycle','bik']
+// const arr=items.filter(product=>product.includes('bik'))
+// console.log(arr)
+
+
+
 
   return (
     <>
@@ -33,6 +39,11 @@ const dispatch=useDispatch()
         <Route path="/Discard" element={<Discard_ad />} />
         <Route path='/Sell2' element={<Sell2/>} />
       </Routes>
+      
+
+
+
+
       
     </>
   );
