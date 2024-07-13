@@ -58,12 +58,9 @@ const upload = multer({ storage });
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Routes
-
 app.get('/', (req, res) => {
   res.send('Backend API is running');
 });
-
-
 
 app.post('/sell', upload.array('pics', 12), async (req, res) => {
   try {
@@ -119,16 +116,13 @@ app.post('/delete', async (req, res) => {
       return res.status(404).send({ error: 'Seller or cycle not found' });
     }
 
-
-
     res.send({ message: 'Cycle removed successfully', result });
   } catch (error) {
     res.status(500).send({ error: 'An error occurred', details: error.message });
-  }});
+  }
+});
 
-
-
-  app.post('/change', upload.array('pics', 12), async (req, res) => {
+app.post('/change', upload.array('pics', 12), async (req, res) => {
   try {
     const { new_name, new_phone, new_title, description, new_price, user_id } = req.body;
     const pics = req.files.map(file => file.filename); // Extract filenames from uploaded files
@@ -163,11 +157,6 @@ app.post('/delete', async (req, res) => {
     res.status(500).send({ error: 'An error occurred', details: e.message });
   }
 });
-
-
-
-
-
 
 // Start the server
 app.listen(PORT, () => {
