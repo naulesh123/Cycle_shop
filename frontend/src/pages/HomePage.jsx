@@ -79,9 +79,9 @@ export default function HomePage() {
 
   return (
     <>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '30vh' }}>
+      {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '30vh' }}>
         <Big_searchBar />
-      </div>
+      </div> */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
         {searched_array}
       </div>
