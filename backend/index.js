@@ -58,6 +58,13 @@ const upload = multer({ storage });
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Routes
+
+app.get('/', (req, res) => {
+  res.send('Backend API is running');
+});
+
+
+
 app.post('/sell', upload.array('pics', 12), async (req, res) => {
   try {
     const { name, phone, title, description, price } = req.body;
