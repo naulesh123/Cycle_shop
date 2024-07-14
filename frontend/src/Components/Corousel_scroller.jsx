@@ -9,7 +9,7 @@ const arr=[];
 
 for(let i=0;i<props.product_photo.length;i++)
   {
-  const imgurl=`http://localhost:5000/uploads/${props.product_photo[i]}`;
+  const imgurl=`https://cycle-shop-hpxr4-dxnl3qv7q-naulesh123s-projects.vercel.app/uploads/${props.product_photo[i]}`;
   arr.push(<Corousel_scroller_element products_url={imgurl}/>)
   
   
