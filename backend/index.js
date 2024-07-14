@@ -64,7 +64,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Backend API is running');
+  res.send('Backend API is runningsss');
 });
 
 app.post('/sell', upload.array('pics', 12), async (req, res) => {
