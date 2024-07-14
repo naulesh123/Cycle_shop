@@ -8,7 +8,12 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+const allowedOrigins = ['http://localhost:5173'];
+const options = {
+  origin: allowedOrigins,
+};
+
+app.use(cors(options));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -59,7 +64,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Backend API is running');
+  res.send('Backend API is runningsss');
 });
 
 app.post('/sell', upload.array('pics', 12), async (req, res) => {
