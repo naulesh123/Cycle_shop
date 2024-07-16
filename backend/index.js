@@ -8,15 +8,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = [""];
 const options = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin:[""],
   credentials: true,
   methods:["POST","GET"],
 };
