@@ -20,7 +20,7 @@ export default function HomePage() {
   useEffect(() => {
     const getting_data = async () => {
       try {
-        const response = await axios.get('https://cycle-shop-hpxr4-dxnl3qv7q-naulesh123s-projects.vercel.app/cycles');
+        const response = await axios.get('https://cycle-shop5.vercel.app/cycles');
         setproduct_array(response.data);
         dispatch(updating_product_array_obj(response.data));
       } catch (error) {
