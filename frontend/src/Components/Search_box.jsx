@@ -11,7 +11,7 @@ export default function Search_box() {
     const value = e.target.value;
     setsearch_value(value);
     dispatch(updating_search_value(value.toLowerCase()));
-    console.log(value, "hahahah");
+    // console.log(value, "hahahah");
   };
 
   return (
