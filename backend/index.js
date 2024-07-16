@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-const allowedOrigins = [""];
+const allowedOrigins = ["https://cycle-shop-frontend.vercel.app"];
 const options = {
   origin:[""],
   credentials: true,
