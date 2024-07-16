@@ -39,7 +39,7 @@ const Sell = () => {
     }
 
     try {
-      const response = await axios.post('https://cycle-shop-hpxr4-dxnl3qv7q-naulesh123s-projects.vercel.app/sell', formData, {
+      const response = await axios.post('https://cycle-shop5.vercel.app/sell', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
