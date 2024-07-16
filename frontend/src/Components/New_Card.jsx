@@ -10,7 +10,7 @@ import {
   export function New_Card(props) {
     
     
-    const imageUrl = `https://cycle-shop-hpxr4-dxnl3qv7q-naulesh123s-projects.vercel.app/uploads/${props.profile_image}`;
+    const imageUrl = `https://cycle-shop5.vercel.app/uploads/${props.profile_image}`;
 
     // console.log(imageUrl)
     
