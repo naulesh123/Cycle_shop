@@ -56,7 +56,7 @@ const user_id=useSelector(state=>state.counter.user_id)
     }
 
     try {
-      const response = await axios.post('https://cycle-shop-hpxr4-dxnl3qv7q-naulesh123s-projects.vercel.app/change', formData, {
+      const response = await axios.post('https://cycle-shop5.vercel.app/change', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
