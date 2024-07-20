@@ -8,14 +8,24 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-const allowedOrigins = ["https://cycle-shop-frontend.vercel.app"];
+const allowedOrigins = ["https://cycle-shop-frontend.vercel.app", "http://localhost:5173"];
 const options = {
-  origin:["https://cycle-shop-frontend.vercel.app","http://localhost:5173"],
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-  methods:["POST","GET"],
+  methods: ["POST", "GET"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(options));
+app.options('*', cors(options)); 
+
+//app.use(cors(options));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
