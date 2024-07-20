@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5001;
 
 const allowedOrigins = ["https://cycle-shop-frontend.vercel.app"];
 const options = {
-  origin:[""],
+  origin:["https://cycle-shop-frontend.vercel.app","http://localhost:5173"],
   credentials: true,
   methods:["POST","GET"],
 };
