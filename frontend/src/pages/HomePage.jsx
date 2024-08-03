@@ -20,7 +20,8 @@ export default function HomePage() {
   useEffect(() => {
     const getting_data = async () => {
       try {
-        const response = await axios.get('https://cycle-shop5.vercel.app/cycles');
+        // const response = await axios.get('https://cycle-shop5.vercel.app/cycles');
+        const response = await axios.get('http://localhost:5001/cycles');
         setproduct_array(response.data);
         dispatch(updating_product_array_obj(response.data));
       } catch (error) {
@@ -36,7 +37,8 @@ export default function HomePage() {
       const new_array = product_array.map((product) => (
         <NewModal
           key={product._id}
-          profile_image={trimmer(product.pics)}
+          // profile_image={trimmer(product.pics)}
+          profile_image={product.pics[0]}
           product_title={product.name}
           product_photo={product.pics}
           product_price={product.price}
@@ -57,7 +59,8 @@ export default function HomePage() {
       const new_array2 = searched_items_array.map((product) => (
         <NewModal
           key={product._id}
-          profile_image={trimmer(product.pics)}
+          // profile_image={trimmer(product.pics)}
+          profile_image={product.pics[0]}
           product_title={product.name}
           product_photo={product.pics}
           product_price={product.price}
@@ -71,11 +74,11 @@ export default function HomePage() {
     }
   }, [searchValue, new_array_obj, Card_array]);
 
-  const trimmer = (string) => {
-    let str = string[0];
-    str = str.split('\\');
-    return str[str.length - 1];
-  };
+  // const trimmer = (string) => {
+  //   let str = string[0];
+  //   str = str.split('\\');
+  //   return str[str.length - 1];
+  // };
 
   return (
     <>

@@ -39,28 +39,48 @@ const user_id=useSelector(state=>state.counter.user_id)
   };
 
   const Post_button = async () => {
-    const formData = new FormData();
-    formData.append('new_name', name);
-    formData.append('new_phone', phone);
-    formData.append('new_title', title);
-    formData.append('description', description); // Append description
-    formData.append('new_price', price);
-    formData.append('user_id',user_id);
-    photos.forEach((photo, index) => {
-      formData.append('pics', photo, `photo-${index}.jpg`);
-    });
+    // const formData = new FormData();
+    // formData.append('new_name', name);
+    // formData.append('new_phone', phone);
+    // formData.append('new_title', title);
+    // formData.append('description', description); // Append description
+    // formData.append('new_price', price);
+    // formData.append('user_id',user_id);
+    // photos.forEach((photo, index) => {
+    //   formData.append('pics', photo, `photo-${index}.jpg`);
+    // });
+
+    const formData={'new_name':name ,'new_phone': phone ,'new_title': title , 'description': description ,'new_price': price ,'user_id':user_id,'pics':[]}
+
 
     // Log FormData content for debugging
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+
+    for (const photo of photos) {
+      const data = new FormData();
+      data.append("file", photo);
+      data.append("upload_preset", "Cycle_shop1");
+      data.append("cloud_name", "dq3dmgk5e");
+  
+      try {
+        const res = await axios.post(`https://api.cloudinary.com/v1_1/dq3dmgk5e/image/upload`, data);
+        console.log('File uploaded successfully', res.data.url);
+        // formData.append('pics', res.data.url);  // Append the URL from the response to formData
+        formData.pics.push(res.data.url)
+      } catch (e) {
+        console.error('Error uploading file:', e);
+      }
+
     }
+    
+
+
+
 
     try {
-      const response = await axios.post('https://cycle-shop5.vercel.app/change', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      const response = await axios.post('http://localhost:5001/change', formData);
       console.log('Response:', response.data);
       navigate(-1); // Go back to the previous page
     } catch (error) {

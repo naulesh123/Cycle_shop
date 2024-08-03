@@ -9,9 +9,9 @@ const arr=[];
 
 for(let i=0;i<props.product_photo.length;i++)
   {
-  const imgurl=`https://cycle-shop5.vercel.app/uploads/${props.product_photo[i]}`;
-  arr.push(<Corousel_scroller_element products_url={imgurl}/>)
-  
+  // const imgurl=`https://cycle-shop5.vercel.app/uploads/${props.product_photo[i]}`;
+  // arr.push(<Corousel_scroller_element products_url={imgurl}/>)
+  arr.push(<Corousel_scroller_element products_url={props.product_photo[i]}/>)
   
   }
 

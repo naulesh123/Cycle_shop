@@ -28,7 +28,7 @@ export function Discard_ad() {
 
   const getData = async () => {
     try {
-      const response = await axios.get('https://cycle-shop5.vercel.app/cycles');
+      const response = await axios.get('http://localhost:5001/cycles');
       setProductArray(response.data);
     } catch (error) {
       console.error(error);
@@ -47,11 +47,11 @@ export function Discard_ad() {
     setPhoneNumber(e.target.value);
   };
 
-  const trimmer = (string) => {
-    let str = string[0];
-    str = str.split("\\");
-    return str[str.length - 1];
-  };
+  // const trimmer = (string) => {
+  //   let str = string[0];
+  //   str = str.split("\\");
+  //   return str[str.length - 1];
+  // };
 
   const renderProducts = () => {
     if (productArray.length && nameOfSeller === '') {
@@ -60,7 +60,7 @@ export function Discard_ad() {
         .map((product, i) => (
           <div key={product._id}>
             <NewModal
-              profile_image={trimmer(product.pics)}
+              profile_image={product.pics[0]}
               product_title={product.name}
               product_photo={product.pics}
               product_price={product.price}
@@ -82,13 +82,16 @@ export function Discard_ad() {
       return updatedArray.map((product, i) => (
         <div key={product._id}>
           <NewModal
-            profile_image={trimmer(product.pics)}
+            profile_image={product.pics[0]}
             product_title={product.name}
             product_photo={product.pics}
             product_price={product.price}
             sellerName={nameOfSeller}
             sellerPhone={product.sellerPhone}
           />
+  
+
+
           <div className="flex" style={{ justifyContent: 'space-between' }}>
             <Button color="amber" onClick={() => change_ad(nameOfSeller, product.name, product.sellerPhone,product._id)}>Change Ad</Button>
             <Delete_warning index={i} id={product._id} sellerPhone={product.sellerPhone}>Delete Ad</Delete_warning>

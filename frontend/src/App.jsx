@@ -10,6 +10,7 @@ import {Discard_ad} from "./pages/Discard_ad";
 import { increment, decrement, incrementByAmount } from './store/counter/counterSlice'
 import { useSelector,useDispatch } from "react-redux";
 import Sell2 from "./pages/Sell2";
+import Cloud_approach from "./pages/Cloud_approach";
 
 
 function App() {
@@ -34,6 +35,7 @@ const dispatch=useDispatch()
         <span className="py-3 text-pink-400">F</span> */}
       </div>
       <Routes>
+        {/* <Route path="/" element={<Cloud_approach/>} /> */}
         <Route path="/" element={<HomePage />} />
         <Route path="/Sell" element={<Sell />} />
         <Route path="/Discard" element={<Discard_ad />} />
