@@ -21,7 +21,7 @@ export default function HomePage() {
     const getting_data = async () => {
       try {
         // const response = await axios.get('https://cycle-shop5.vercel.app/cycles');
-        const response = await axios.get('http://localhost:5001/cycles');
+        const response = await axios.get('https://cycle-shop5.vercel.app/cycles');
         setproduct_array(response.data);
         dispatch(updating_product_array_obj(response.data));
       } catch (error) {
