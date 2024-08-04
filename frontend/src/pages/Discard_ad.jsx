@@ -28,7 +28,7 @@ export function Discard_ad() {
 
   const getData = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/cycles');
+      const response = await axios.get('https://cycle-shop5.vercel.app/cycles');
       setProductArray(response.data);
     } catch (error) {
       console.error(error);
