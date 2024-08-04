@@ -81,7 +81,7 @@ const Sell = () => {
 
 
     try {
-      const response = await axios.post('http://localhost:5001/sell', formData, 
+      const response = await axios.post('https://cycle-shop5.vercel.app/sell', formData, 
         // {
         // headers: {
         //   'Content-Type': 'multipart/form-data'  
