@@ -35,7 +35,7 @@ export function Delete_warning(props) {
           // console.log(useSelector(state=>state.counter.deleted_index))
     // console.log(props.index)
          try{
-            const res=await axios.post('http://localhost:5001/delete',{_id:props.id,phone:props.sellerPhone})
+            const res=await axios.post('https://cycle-shop5.vercel.app/delete',{_id:props.id,phone:props.sellerPhone})
             // dispatch()
             console.log(res.data.result.cycles)
             dispatch(updating_array(res.data.result.cycles))
