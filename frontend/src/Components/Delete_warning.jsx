@@ -8,12 +8,13 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { useSelector,useDispatch } from "react-redux"; 
+import { Navigate, useNavigate } from "react-router-dom";
 import { increment, decrement, incrementByAmount,index_of_delete,number_of_delete,updating_array ,updating_sellername} from '../store/counter/counterSlice'
 
 export function Delete_warning(props) {
   const [open, setOpen] = React.useState(false);
   // console.log(props.id)
-
+  const navigate = useNavigate(); 
   const dispatch=useDispatch()
   // console.log(useSelector(state=>state.counter.deleted_index))
   const curr_no=useSelector(state=>state.counter.deleted_number)
@@ -39,6 +40,8 @@ export function Delete_warning(props) {
             console.log(res.data.result.cycles)
             dispatch(updating_array(res.data.result.cycles))
             dispatch(updating_sellername(res.data.result.name))
+            window.location.reload();
+
 
             
             /////////////////////////
@@ -50,7 +53,9 @@ export function Delete_warning(props) {
 
 
         }    
-    setOpen(!open)};
+    setOpen(!open)
+  
+  };
 
   
   

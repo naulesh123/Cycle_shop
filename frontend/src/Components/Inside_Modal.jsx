@@ -39,6 +39,10 @@ const Inside_Modal = (props) => {
               {props.sellerPhone}
             </div>
           </div>
+{
+  console.log(props.sellerPhone,"tHis one")
+}
+
         </CardBody>
       </Card>
     </div>

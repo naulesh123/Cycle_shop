@@ -61,28 +61,31 @@ const Seller = mongoose.model('Seller', sellerSchema);
 const Buyer = mongoose.model('Buyer', buyerSchema);
 
 // Multer storage //
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Ensure this directory exists
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`); // Unique filename
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'uploads/'); // Ensure this directory exists
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, `${Date.now()}-${file.originalname}`); // Unique filename
+//   },
+// });
 
-const upload = multer({ storage });
-
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+// const upload = multer({ storage });
+// app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Routes
 app.get('/', (req, res) => {
   res.send('Backend API is runningsss');
 });
 
-app.post('/sell', upload.array('pics', 12), async (req, res) => {
+app.post('/sell',  async (req, res) => {
+  console.log(req.body)
   try {
-    const { name, phone, title, description, price } = req.body;
-    const pics = req.files.map(file => file.filename); // Only the filenames
+    const { name, phone, title, description, price ,pics} = req.body;
+    // const pics = req.files.map(file => file.filename); // Only the filenames
+
+console.log(name, phone,title ,price, pics);
+
 
     const newCycle = {
       name: title,
@@ -102,6 +105,9 @@ app.post('/sell', upload.array('pics', 12), async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+
 
 app.get('/cycles', async (req, res) => {
   try {
@@ -123,6 +129,8 @@ app.post('/delete', async (req, res) => {
   try {
     const { _id, phone } = req.body;
 
+    console.log(_id,phone)
+
     const result = await Seller.findOneAndUpdate(
       { phone: phone },
       { $pull: { cycles: { _id: _id } } },
@@ -139,10 +147,14 @@ app.post('/delete', async (req, res) => {
   }
 });
 
-app.post('/change', upload.array('pics', 12), async (req, res) => {
+
+
+//////////////////// change ///////////////////////////////////////////////////
+
+app.post('/change',  async (req, res) => {
   try {
-    const { new_name, new_phone, new_title, description, new_price, user_id } = req.body;
-    const pics = req.files.map(file => file.filename); // Extract filenames from uploaded files
+    const { new_name, new_phone, new_title, description, new_price, user_id , pics } = req.body;
+    // const pics = req.files.map(file => file.filename); // Extract filenames from uploaded files
 
     const newCycle = {
       name: new_title,

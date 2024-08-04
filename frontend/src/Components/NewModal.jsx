@@ -39,6 +39,10 @@ export function NewModal(props) {
         </DialogBody>
         <DialogFooter className="justify-between">
           <div className="flex items-center gap-16">
+{
+  console.log(props.sellerPhone,"NewModal")
+}
+
             <div>
               <Typography variant="small" color="gray" className="font-normal">
                 Views

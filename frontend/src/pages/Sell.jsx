@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Input } from "@material-tailwind/react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+// import app from '../../../backend';
 
 const Sell = () => {
   const [brand, setBrand] = useState('');
@@ -23,32 +24,77 @@ const Sell = () => {
   };
 
   const Post_button = async () => {
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('phone', phone);
-    formData.append('title', title.toLowerCase());
-    formData.append('description', description); // Append description
-    formData.append('price', price);
-    photos.forEach((photo, index) => {
-      formData.append('pics', photo, `photo-${index}.jpg`);
-    });
+    // const formData = new FormData();
+    // formData.append('name', name);
+    // formData.append('phone', phone);
+    // formData.append('title', title.toLowerCase());
+    // formData.append('description', description); // Append description
+    // formData.append('price', price);
 
-    // Log FormData content for debugging
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
+    const formData={
+     'name':name , 'phone':phone,'title':title,'description':description,'price':price,'pics':[]
     }
 
+
+
+
+
+
+
+
+
+
+    for (const photo of photos) {
+      const data = new FormData();
+      data.append("file", photo);
+      data.append("upload_preset", "Cycle_shop1");
+      data.append("cloud_name", "dq3dmgk5e");
+  
+      try {
+        const res = await axios.post(`https://api.cloudinary.com/v1_1/dq3dmgk5e/image/upload`, data);
+        console.log('File uploaded successfully', res.data.url);
+        // formData.append('pics', res.data.url);  // Append the URL from the response to formData
+        formData.pics.push(res.data.url)
+      } catch (e) {
+        console.error('Error uploading file:', e);
+      }
+
+    }
+    // Log FormData content for debugging
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+
+    // try {
+    //   const response = await axios.post('https://cycle-shop5.vercel.app/sell', formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data'  
+    //     }
+    //   });
+    //   console.log('Response:', response.data);
+    //   navigate(-1); // Go back to the previous page
+    // } catch (error) {
+    //   console.error('Error sending data:', error);
+    // }
+
+   console.log(formData)
+
+
     try {
-      const response = await axios.post('https://cycle-shop5.vercel.app/sell', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      const response = await axios.post('https://cycle-shop5.vercel.app/sell', formData, 
+        // {
+        // headers: {
+        //   'Content-Type': 'multipart/form-data'  
+        // }}
+      );
       console.log('Response:', response.data);
       navigate(-1); // Go back to the previous page
     } catch (error) {
       console.error('Error sending data:', error);
     }
+
+
+
   };
 
   return (
